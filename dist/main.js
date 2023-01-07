@@ -3,6 +3,7 @@ const d = document;
 const w = window;
 const log = console;
 const WAITASEC = 1000;
+const ISSCROLLING = false;
 const userInteractions = (function () {
     on(".li:not(.ul li)", {
         pointerover(e) {
@@ -24,7 +25,18 @@ const userInteractions = (function () {
             });
         },
     });
+    window.onscroll = userIsScrolling;
 })();
+function userIsScrolling(event) {
+    function addSroll(param) {
+    }
+    function getAxis(param) {
+        const element = d.querySelector(param);
+        const axis = element === null || element === void 0 ? void 0 : element.getBoundingClientRect();
+        return axis;
+    }
+    return ISSCROLLING;
+}
 function on(element, events) {
     if (typeof element === "string") {
         const e = d.querySelectorAll(element);

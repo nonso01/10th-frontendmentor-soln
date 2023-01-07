@@ -3,6 +3,7 @@ const w = window;
 const log = console;
 
 const WAITASEC = 1000;
+const ISSCROLLING = false
 
 const userInteractions = (function () {
   on(".li:not(.ul li)", {
@@ -12,7 +13,6 @@ const userInteractions = (function () {
       const child = parent.childNodes;
       child[3]?.classList.add("visible");
       child[1]?.classList.add("over");
-      // log.log(child[1]);
     },
     pointerleave(e: any) {
       const parent = e.composedPath()[0];
@@ -25,7 +25,31 @@ const userInteractions = (function () {
       });
     },
   });
+
+  window.onscroll = userIsScrolling
 })();
+
+
+function userIsScrolling(event: any): boolean {
+  
+/**
+ * addScroll - function watches an element when the user scrolls
+ * pass through it or when it needs to toggle some classes
+ * @param param = string
+ */
+function addSroll(param: string): void {
+
+}
+
+function getAxis(param: string): DOMRect | undefined {
+  const element = d.querySelector(param)
+  const axis = element?.getBoundingClientRect()
+  return axis
+}
+
+  return ISSCROLLING
+}
+
 
 /**
  * on - adds multiple events to an element
