@@ -28,8 +28,7 @@ const userInteractions = (function () {
     window.onscroll = userIsScrolling;
 })();
 function userIsScrolling(event) {
-    function addSroll(param) {
-    }
+    function addSroll(param) { }
     function getAxis(param) {
         const element = d.querySelector(param);
         const axis = element === null || element === void 0 ? void 0 : element.getBoundingClientRect();

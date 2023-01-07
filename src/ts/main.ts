@@ -3,7 +3,7 @@ const w = window;
 const log = console;
 
 const WAITASEC = 1000;
-const ISSCROLLING = false
+const ISSCROLLING = false;
 
 const userInteractions = (function () {
   on(".li:not(.ul li)", {
@@ -26,30 +26,25 @@ const userInteractions = (function () {
     },
   });
 
-  window.onscroll = userIsScrolling
+  window.onscroll = userIsScrolling;
 })();
 
-
 function userIsScrolling(event: any): boolean {
-  
-/**
- * addScroll - function watches an element when the user scrolls
- * pass through it or when it needs to toggle some classes
- * @param param = string
- */
-function addSroll(param: string): void {
+  /**
+   * addScroll - function watches an element when the user scrolls
+   * pass through it or when it needs to toggle some classes
+   * @param param = string
+   */
+  function addSroll(param: string): void {}
 
+  function getAxis(param: string): DOMRect | undefined {
+    const element = d.querySelector(param);
+    const axis = element?.getBoundingClientRect();
+    return axis;
+  }
+
+  return ISSCROLLING;
 }
-
-function getAxis(param: string): DOMRect | undefined {
-  const element = d.querySelector(param)
-  const axis = element?.getBoundingClientRect()
-  return axis
-}
-
-  return ISSCROLLING
-}
-
 
 /**
  * on - adds multiple events to an element
@@ -67,11 +62,9 @@ function on(element: string, events: {} | any): void {
   } else log.warn("pls provide a css selector");
 }
 
-
 function dq(x: string): Element | any {
-  return d.querySelector(x)
+  return d.querySelector(x);
 }
 function dqA(x: string) {
-  return d.querySelectorAll(x)
+  return d.querySelectorAll(x);
 }
-
