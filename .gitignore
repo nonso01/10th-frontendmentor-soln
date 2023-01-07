@@ -1,5 +1,6 @@
 *.map
 *.vscode
+*.ttf
 style-guide.md
 /src/scss
 /assets/design
