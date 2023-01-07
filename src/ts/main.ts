@@ -17,10 +17,10 @@ const userInteractions = (function () {
     pointerleave(e: any) {
       const parent = e.composedPath()[0];
       const child = parent.childNodes;
-      child[1]?.classList.remove("over");
       on(".ul.visible", {
         pointerleave(e: any) {
           e.composedPath()[0]?.classList.remove("visible");
+          child[1]?.classList.remove("over");
         },
       });
     },
@@ -42,3 +42,12 @@ function on(element: string, events: {} | any): void {
     }
   } else log.warn("pls provide a css selector");
 }
+
+
+function dq(x: string): Element | any {
+  return d.querySelector(x)
+}
+function dqA(x: string) {
+  return d.querySelectorAll(x)
+}
+

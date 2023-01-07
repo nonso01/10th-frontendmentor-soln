@@ -13,14 +13,13 @@ const userInteractions = (function () {
             (_b = child[1]) === null || _b === void 0 ? void 0 : _b.classList.add("over");
         },
         pointerleave(e) {
-            var _a;
             const parent = e.composedPath()[0];
             const child = parent.childNodes;
-            (_a = child[1]) === null || _a === void 0 ? void 0 : _a.classList.remove("over");
             on(".ul.visible", {
                 pointerleave(e) {
-                    var _a;
+                    var _a, _b;
                     (_a = e.composedPath()[0]) === null || _a === void 0 ? void 0 : _a.classList.remove("visible");
+                    (_b = child[1]) === null || _b === void 0 ? void 0 : _b.classList.remove("over");
                 },
             });
         },
@@ -37,4 +36,10 @@ function on(element, events) {
     }
     else
         log.warn("pls provide a css selector");
+}
+function dq(x) {
+    return d.querySelector(x);
+}
+function dqA(x) {
+    return d.querySelectorAll(x);
 }

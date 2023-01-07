@@ -1,0 +1,5 @@
+*.map
+*.vscode
+style-guide.md
+/src/scss
+/assets/design
