@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ff3d54">
     <!-- displays site properly based on user's device -->
 
     <link
@@ -19,7 +20,7 @@
     <div id="app" class="wrapper">
       <div class="hd" id="header">
         <div class="hd__navigator">
-          <div class="hd__logo">
+          <div class="hd__logo" data-move="0">
             <img src="/assets/images/logo.svg" alt="blogr logo" />
           </div>
 
@@ -70,7 +71,7 @@
           </div>
         </div>
 
-        <div class="hd__intro">
+        <div class="hd__intro" data-move="1">
           <div>
             <h1 class="title__big">A modern publishing platform</h1>
 
@@ -87,10 +88,10 @@
       </div>
 
       <div class="page__future page">
-        <h2 class="title__medium">Designed for the future</h2>
+        <h2 class="title__medium" data-move="2">Designed for the future</h2>
 
         <div class="page__desc">
-          <div class="page__text">
+          <div class="page__text" data-move="3">
             <h3 class="title__small">Introducing an extensible editor</h3>
             <p class="title__paragraph">
               Blogr features an exceedingly intuitive interface which lets you
@@ -101,7 +102,7 @@
               change the looks of a blog.
             </p>
           </div>
-          <div class="page__text">
+          <div class="page__text" data-move="4">
             <h3 class="title__small">Robust content management</h3>
             <p class="title__paragraph">
               Flexible content management enables users to easily move through
@@ -112,20 +113,20 @@
           </div>
         </div>
 
-        <div class="page__image"></div>
+        <div class="page__image" data-move="5"></div>
       </div>
       <!-- dummy space -->
       <div class="space"></div>
       <!-- dummy space   -->
       <div class="sec sec__art">
-        <div class="sec__image">
+        <div class="sec__image" data-move="6">
           <img
             src="/assets/images/illustration-phones.svg"
             alt="illustration-phones"
           />
         </div>
 
-        <div class="sec__text">
+        <div class="sec__text" data-move="7">
           <h3 class="title__medium">State of the Art Infrastructure</h3>
           <p class="title__paragraph">
             With reliability and speed in mind, worldwide data centers provide
@@ -138,7 +139,7 @@
 
       <div class="page__tooling page">
         <div class="page__desc">
-          <div class="page__text">
+          <div class="page__text" data-move="8">
             <h3 class="title__small">Free, open, simple</h3>
             <p class="title__paragraph">
               Blogr is a free and open source application backed by a large
@@ -149,7 +150,7 @@
               learn.
             </p>
           </div>
-          <div class="page__text">
+          <div class="page__text" data-move="9">
             <h3 class="title__small">Powerful tooling</h3>
             <p class="title__paragraph">
               Batteries included. We built a simple and straightforward CLI tool
@@ -159,18 +160,48 @@
           </div>
         </div>
 
-        <div class="page__image"></div>
+        <div class="page__image" data-move="10"></div>
       </div>
       <!-- dummy space -->
       <div class="space"></div>
       <!-- dummy space   -->
       <div class="ft">
         <div class="ft__wrapper">
-          <div class="ft__logo">
+          <div class="ft__logo" data-move="11">
             <img src="/assets/images/logo.svg" alt="logo" />
           </div>
 
-          <div class="ft__links"></div>
+          <div class="ft__links" data-move="12">
+            <div>
+              <h4 class="title__small">Product</h4>
+              <ul>
+                <li>Overview</li>
+                <li>Pricing</li>
+                <li>Marketplace</li>
+                <li>Features</li>
+                <li>Integrations</li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 class="title__small">Company</h4>
+              <ul>
+                <li>About</li>
+                <li>Team</li>
+                <li>Blog</li>
+                <li>Careers</li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 class="title__small">Connect</h4>
+              <ul>
+                <li>Contact</li>
+                <li>Newsletter</li>
+                <li>LinkedIn</li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </div>

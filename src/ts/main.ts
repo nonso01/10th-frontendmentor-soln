@@ -3,7 +3,23 @@ const w = window;
 const log = console;
 
 const WAITASEC = 1000;
-const ISSCROLLING = false;
+let ISSCROLLING = false;
+
+const elementToWatch: object[] | any = {
+  '[data-move="0"]': "move__left",
+  '[data-move="1"]': "move__down",
+  '[data-move="2"]': "move__left",
+  '[data-move="3"]': "move__right",
+  '[data-move="4"]': "move__up",
+  '[data-move="5"]': "move__right",
+  '[data-move="6"]': "move__left",
+  '[data-move="7"]': "move__right",
+  '[data-move="8"]': "move__right",
+  '[data-move="9"]': "move__left",
+  '[data-move="10"]': "move__left",
+  '[data-move="11"]': "move__up",
+  '[data-move="12"]': "move__down",
+};
 
 const userInteractions = (function () {
   on(".li:not(.ul li)", {
@@ -27,25 +43,61 @@ const userInteractions = (function () {
   });
 
   window.onscroll = userIsScrolling;
+  showNav()
 })();
 
 function userIsScrolling(event: any): boolean {
-  /**
-   * addScroll - function watches an element when the user scrolls
-   * pass through it or when it needs to toggle some classes
-   * @param param = string
-   */
-  function addSroll(param: string): void {}
-
-  function getAxis(param: string): DOMRect | undefined {
-    const element = d.querySelector(param);
-    const axis = element?.getBoundingClientRect();
-    return axis;
+  if (ISSCROLLING === false) {
+    let frame = requestAnimationFrame(function () {
+      watchForScroll(elementToWatch);
+      ISSCROLLING = false;
+    });
   }
-
+  ISSCROLLING = true;
   return ISSCROLLING;
 }
 
+/**
+ * watchForScroll - function watches an element when the user scrolls
+ * pass through it or when it needs to toggle some classes
+ * @param param = an object of element and classes
+ */
+function watchForScroll(param?: object[]): void {
+  if (param) {
+    for (let el in param) {
+      let target = el;
+      let token = param[el];
+      const targetElement = dq(target);
+
+      if (isPartial(target)) {
+        targetElement.classList?.remove(token);
+      } else {
+        targetElement.classList.add(token);
+      }
+    }
+  }
+
+  function isPartial(visible: string) {
+    let bound = getAxis(visible);
+    let top = bound?.top ?? 0;
+    let bottom = bound?.bottom ?? 0;
+    let height = bound?.height ?? 0;
+    // return top >= 0 && bottom <= w.innerHeight;
+    return top + height >= 0 && height + w.innerHeight >= bottom;
+  }
+}
+
+function getAxis(param: string): DOMRect | undefined {
+  const element = d.querySelector(param);
+  const axis = element?.getBoundingClientRect();
+  return axis;
+}
+
+function showNav(param = '.hd__navigator') {
+  let frame = requestAnimationFrame(showNav)
+  let bound = getAxis(param)
+
+}
 /**
  * on - adds multiple events to an element
  * @param element = string
