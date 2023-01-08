@@ -1,12 +1,12 @@
 const d = document;
-const w = window;
+const w = globalThis ?? window;
 const log = console;
 
 const WAITASEC = 1000;
 let ISSCROLLING = false;
 
 const elementToWatch: object[] | any = {
-  '[data-move="0"]': "move__left",
+  '[data-move="0"]': "move__down",
   '[data-move="1"]': "move__down",
   '[data-move="2"]': "move__left",
   '[data-move="3"]': "move__right",
@@ -27,23 +27,23 @@ const userInteractions = (function () {
       const parent = e.composedPath()[0];
 
       const child = parent.childNodes;
-      child[3]?.classList.add("visible");
-      child[1]?.classList.add("over");
+      child[3]!.classList.add("visible");
+      child[1]!.classList.add("over"); 
     },
     pointerleave(e: any) {
       const parent = e.composedPath()[0];
       const child = parent.childNodes;
       on(".ul.visible", {
         pointerleave(e: any) {
-          e.composedPath()[0]?.classList.remove("visible");
-          child[1]?.classList.remove("over");
+          e.composedPath()[0].classList?.remove("visible");
+          child[1].classList?.remove("over");
         },
       });
     },
   });
 
-  window.onscroll = userIsScrolling;
-  showNav()
+  w.onscroll = userIsScrolling;
+  w.onmousemove = userMouseIsMoving
 })();
 
 function userIsScrolling(event: any): boolean {
@@ -53,8 +53,13 @@ function userIsScrolling(event: any): boolean {
       ISSCROLLING = false;
     });
   }
+ 
   ISSCROLLING = true;
   return ISSCROLLING;
+}
+
+function userMouseIsMoving(e:EventTarget| any) {
+log.log(e?.toElement)
 }
 
 /**
@@ -79,25 +84,21 @@ function watchForScroll(param?: object[]): void {
 
   function isPartial(visible: string) {
     let bound = getAxis(visible);
-    let top = bound?.top ?? 0;
-    let bottom = bound?.bottom ?? 0;
-    let height = bound?.height ?? 0;
+    let top = bound!.top;
+    let bottom = bound!.bottom;
+    let height = bound!.height;
     // return top >= 0 && bottom <= w.innerHeight;
     return top + height >= 0 && height + w.innerHeight >= bottom;
   }
 }
 
+
 function getAxis(param: string): DOMRect | undefined {
   const element = d.querySelector(param);
-  const axis = element?.getBoundingClientRect();
+  const axis = element!.getBoundingClientRect();
   return axis;
 }
 
-function showNav(param = '.hd__navigator') {
-  let frame = requestAnimationFrame(showNav)
-  let bound = getAxis(param)
-
-}
 /**
  * on - adds multiple events to an element
  * @param element = string

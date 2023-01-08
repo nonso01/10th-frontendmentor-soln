@@ -1,11 +1,11 @@
 "use strict";
 const d = document;
-const w = window;
+const w = globalThis !== null && globalThis !== void 0 ? globalThis : window;
 const log = console;
 const WAITASEC = 1000;
 let ISSCROLLING = false;
 const elementToWatch = {
-    '[data-move="0"]': "move__left",
+    '[data-move="0"]': "move__down",
     '[data-move="1"]': "move__down",
     '[data-move="2"]': "move__left",
     '[data-move="3"]': "move__right",
@@ -22,11 +22,10 @@ const elementToWatch = {
 const userInteractions = (function () {
     on(".li:not(.ul li)", {
         pointerover(e) {
-            var _a, _b;
             const parent = e.composedPath()[0];
             const child = parent.childNodes;
-            (_a = child[3]) === null || _a === void 0 ? void 0 : _a.classList.add("visible");
-            (_b = child[1]) === null || _b === void 0 ? void 0 : _b.classList.add("over");
+            child[3].classList.add("visible");
+            child[1].classList.add("over");
         },
         pointerleave(e) {
             const parent = e.composedPath()[0];
@@ -34,13 +33,14 @@ const userInteractions = (function () {
             on(".ul.visible", {
                 pointerleave(e) {
                     var _a, _b;
-                    (_a = e.composedPath()[0]) === null || _a === void 0 ? void 0 : _a.classList.remove("visible");
-                    (_b = child[1]) === null || _b === void 0 ? void 0 : _b.classList.remove("over");
+                    (_a = e.composedPath()[0].classList) === null || _a === void 0 ? void 0 : _a.remove("visible");
+                    (_b = child[1].classList) === null || _b === void 0 ? void 0 : _b.remove("over");
                 },
             });
         },
     });
-    window.onscroll = userIsScrolling;
+    w.onscroll = userIsScrolling;
+    w.onmousemove = userMouseIsMoving;
 })();
 function userIsScrolling(event) {
     if (ISSCROLLING === false) {
@@ -51,6 +51,9 @@ function userIsScrolling(event) {
     }
     ISSCROLLING = true;
     return ISSCROLLING;
+}
+function userMouseIsMoving(e) {
+    log.log(e === null || e === void 0 ? void 0 : e.toElement);
 }
 function watchForScroll(param) {
     var _a;
@@ -68,22 +71,17 @@ function watchForScroll(param) {
         }
     }
     function isPartial(visible) {
-        var _a, _b, _c;
         let bound = getAxis(visible);
-        let top = (_a = bound === null || bound === void 0 ? void 0 : bound.top) !== null && _a !== void 0 ? _a : 0;
-        let bottom = (_b = bound === null || bound === void 0 ? void 0 : bound.bottom) !== null && _b !== void 0 ? _b : 0;
-        let height = (_c = bound === null || bound === void 0 ? void 0 : bound.height) !== null && _c !== void 0 ? _c : 0;
+        let top = bound.top;
+        let bottom = bound.bottom;
+        let height = bound.height;
         return top + height >= 0 && height + w.innerHeight >= bottom;
     }
 }
 function getAxis(param) {
     const element = d.querySelector(param);
-    const axis = element === null || element === void 0 ? void 0 : element.getBoundingClientRect();
+    const axis = element.getBoundingClientRect();
     return axis;
-}
-function showNav(param = '.hd__navigator') {
-    let frame = requestAnimationFrame;
-    let bound = getAxis(param);
 }
 function on(element, events) {
     if (typeof element === "string") {
