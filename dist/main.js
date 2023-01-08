@@ -22,19 +22,23 @@ const elementToWatch = {
 const userInteractions = (function () {
     on(".li:not(.ul li)", {
         pointerover(e) {
+            var _a, _b;
+            e.preventDefault();
             const parent = e.composedPath()[0];
             const child = parent.childNodes;
-            child[3].classList.add("visible");
-            child[1].classList.add("over");
+            (_a = child[3]) === null || _a === void 0 ? void 0 : _a.classList.add("visible");
+            (_b = child[1]) === null || _b === void 0 ? void 0 : _b.classList.add("over");
         },
         pointerleave(e) {
+            e.preventDefault();
             const parent = e.composedPath()[0];
             const child = parent.childNodes;
             on(".ul.visible", {
                 pointerleave(e) {
-                    var _a, _b;
-                    (_a = e.composedPath()[0].classList) === null || _a === void 0 ? void 0 : _a.remove("visible");
-                    (_b = child[1].classList) === null || _b === void 0 ? void 0 : _b.remove("over");
+                    var _a, _b, _c;
+                    e.preventDefault();
+                    (_a = e.composedPath()[0]) === null || _a === void 0 ? void 0 : _a.classList.remove("visible");
+                    (_c = (_b = child[1]) === null || _b === void 0 ? void 0 : _b.classList) === null || _c === void 0 ? void 0 : _c.remove("over");
                 },
             });
         },
@@ -53,7 +57,8 @@ function userIsScrolling(event) {
     return ISSCROLLING;
 }
 function userMouseIsMoving(e) {
-    log.log(e === null || e === void 0 ? void 0 : e.toElement);
+    e.preventDefault();
+    e.stopPropagation();
 }
 function watchForScroll(param) {
     var _a;

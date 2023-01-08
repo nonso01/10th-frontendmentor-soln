@@ -24,26 +24,29 @@ const elementToWatch: object[] | any = {
 const userInteractions = (function () {
   on(".li:not(.ul li)", {
     pointerover(e: any) {
+      e.preventDefault();
       const parent = e.composedPath()[0];
 
       const child = parent.childNodes;
-      child[3]!.classList.add("visible");
-      child[1]!.classList.add("over"); 
+      child[3]?.classList.add("visible");
+      child[1]?.classList.add("over");
     },
     pointerleave(e: any) {
+      e.preventDefault();
       const parent = e.composedPath()[0];
       const child = parent.childNodes;
       on(".ul.visible", {
         pointerleave(e: any) {
-          e.composedPath()[0].classList?.remove("visible");
-          child[1].classList?.remove("over");
+          e.preventDefault();
+          e.composedPath()[0]?.classList.remove("visible");
+          child[1]?.classList?.remove("over");
         },
       });
     },
   });
 
   w.onscroll = userIsScrolling;
-  w.onmousemove = userMouseIsMoving
+  w.onmousemove = userMouseIsMoving;
 })();
 
 function userIsScrolling(event: any): boolean {
@@ -53,13 +56,15 @@ function userIsScrolling(event: any): boolean {
       ISSCROLLING = false;
     });
   }
- 
+
   ISSCROLLING = true;
   return ISSCROLLING;
 }
 
-function userMouseIsMoving(e:EventTarget| any) {
-log.log(e?.toElement)
+function userMouseIsMoving(e: EventTarget | any) {
+  e.preventDefault();
+  // log.log(e.x,e.y);
+  e.stopPropagation();
 }
 
 /**
@@ -91,7 +96,6 @@ function watchForScroll(param?: object[]): void {
     return top + height >= 0 && height + w.innerHeight >= bottom;
   }
 }
-
 
 function getAxis(param: string): DOMRect | undefined {
   const element = d.querySelector(param);
