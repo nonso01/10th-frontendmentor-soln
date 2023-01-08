@@ -45,8 +45,17 @@ const userInteractions = (function () {
     },
   });
 
+  on(".ft li", {
+    pointerover(e: any) {
+      let el = e.composedPath()[0];
+      if (el && el instanceof HTMLLIElement) {
+        el.classList.toggle("on");
+      }
+    },
+  });
+
   w.onscroll = userIsScrolling;
-  w.onmousemove = userMouseIsMoving;
+  w.onresize = userIsResizing;
 })();
 
 function userIsScrolling(event: any): boolean {
@@ -61,10 +70,45 @@ function userIsScrolling(event: any): boolean {
   return ISSCROLLING;
 }
 
-function userMouseIsMoving(e: EventTarget | any) {
-  e.preventDefault();
-  // log.log(e.x,e.y);
-  e.stopPropagation();
+userIsResizing();
+function userIsResizing(e?: EventTarget | any) {
+  if (e) e.preventDefault();
+
+  const imgElemennt = {
+    menu: dq(".hd__menu img"),
+    arrow: dqA(".li img"),
+    nav: dq(".hd nav"),
+  };
+
+  const imgUrl = {
+    menuClose: "/assets/images/icon-hamburger.svg",
+    menuOpen: "/assets/images/icon-close.svg",
+    arrowWt: "/assets/images/icon-arrow-light.svg",
+    arrowCl: "/assets/images/icon-arrow-dark.svg",
+  };
+
+  if (w.innerWidth <= 767.98) {
+    imgElemennt.nav.style = "display: none";
+
+    on(".hd__menu img", {
+      click(ev: any) {
+        ev.preventDefault();
+        if (imgElemennt.menu.src.match(/ham/g)) {
+          imgElemennt.menu.src = imgUrl.menuOpen;
+          imgElemennt.nav.style = "display:flex";
+        } else {
+          imgElemennt.menu.src = imgUrl.menuClose;
+          imgElemennt.nav.style = "display: none";
+        }
+      },
+    });
+
+    imgElemennt.arrow.forEach(function (el: any) {
+      el.src = imgUrl.arrowCl;
+    });
+  } else {
+    // imgElemennt.menu.src = imgUrl.menuClose
+  }
 }
 
 /**
