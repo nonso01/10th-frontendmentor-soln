@@ -7,7 +7,7 @@ let ISSCROLLING = false;
 const elementToWatch = {
     '[data-move="0"]': "move__down",
     '[data-move="1"]': "move__down",
-    '[data-move="2"]': "move__left",
+    '[data-move="2"]': "move__right",
     '[data-move="3"]': "move__right",
     '[data-move="4"]': "move__up",
     '[data-move="5"]': "move__right",
@@ -20,27 +20,15 @@ const elementToWatch = {
     '[data-move="12"]': "move__down",
 };
 const userInteractions = (function () {
+    const attr = dq(".attr");
     on(".li:not(.ul li)", {
-        pointerover(e) {
+        click(e) {
             var _a, _b;
             e.preventDefault();
             const parent = e.composedPath()[0];
             const child = parent.childNodes;
-            (_a = child[3]) === null || _a === void 0 ? void 0 : _a.classList.add("visible");
-            (_b = child[1]) === null || _b === void 0 ? void 0 : _b.classList.add("over");
-        },
-        pointerleave(e) {
-            e.preventDefault();
-            const parent = e.composedPath()[0];
-            const child = parent.childNodes;
-            on(".ul.visible", {
-                pointerleave(e) {
-                    var _a, _b, _c;
-                    e.preventDefault();
-                    (_a = e.composedPath()[0]) === null || _a === void 0 ? void 0 : _a.classList.remove("visible");
-                    (_c = (_b = child[1]) === null || _b === void 0 ? void 0 : _b.classList) === null || _c === void 0 ? void 0 : _c.remove("over");
-                },
-            });
+            (_a = child[3]) === null || _a === void 0 ? void 0 : _a.classList.toggle("visible");
+            (_b = child[1]) === null || _b === void 0 ? void 0 : _b.classList.toggle("over");
         },
     });
     on(".ft li", {
@@ -49,6 +37,18 @@ const userInteractions = (function () {
             if (el && el instanceof HTMLLIElement) {
                 el.classList.toggle("on");
             }
+        },
+    });
+    on(".btn", {
+        click(e) {
+            var _a;
+            e.preventDefault();
+            (_a = attr.classList) === null || _a === void 0 ? void 0 : _a.remove("h");
+        },
+    });
+    on(".attr img", {
+        click(e) {
+            attr.classList.add("h");
         },
     });
     w.onscroll = userIsScrolling;
