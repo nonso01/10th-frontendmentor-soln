@@ -68,7 +68,7 @@ userIsResizing();
 function userIsResizing(e) {
     if (e)
         e.preventDefault();
-    const imgElemennt = {
+    const imgElement = {
         menu: dq(".hd__menu img"),
         arrow: dqA(".li img"),
         nav: dq(".hd nav"),
@@ -80,25 +80,29 @@ function userIsResizing(e) {
         arrowCl: "/assets/images/icon-arrow-dark.svg",
     };
     if (w.innerWidth <= 767.98) {
-        imgElemennt.nav.style = "display: none";
+        imgElement.nav.style = "display: none";
         on(".hd__menu img", {
             click(ev) {
                 ev.preventDefault();
-                if (imgElemennt.menu.src.match(/ham/g)) {
-                    imgElemennt.menu.src = imgUrl.menuOpen;
-                    imgElemennt.nav.style = "display:flex";
+                if (imgElement.menu.src.match(/ham/g)) {
+                    imgElement.menu.src = imgUrl.menuOpen;
+                    imgElement.nav.style = "display:flex";
                 }
                 else {
-                    imgElemennt.menu.src = imgUrl.menuClose;
-                    imgElemennt.nav.style = "display: none";
+                    imgElement.menu.src = imgUrl.menuClose;
+                    imgElement.nav.style = "display: none";
                 }
             },
         });
-        imgElemennt.arrow.forEach(function (el) {
+        imgElement.arrow.forEach(function (el) {
             el.src = imgUrl.arrowCl;
         });
     }
     else {
+        imgElement.nav.style = "display: flex";
+        imgElement.arrow.forEach(function (el) {
+            el.src = imgUrl.arrowWt;
+        });
     }
 }
 function watchForScroll(param) {
