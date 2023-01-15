@@ -7,4 +7,4 @@
 - working with `typescript` currently and learning it as well.
 - along side `react js` and `vue js`, all this are not easy, but becomes when you fall in love with `it`
 
-## [link to the solution](https://)
+## [link to the solution](https://nonso01project10.netlify.app/)
