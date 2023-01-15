@@ -5,7 +5,6 @@ const log = console;
 const WAITASEC = 1000;
 let ISSCROLLING = false;
 const elementToWatch = {
-    '[data-move="0"]': "move__down",
     '[data-move="1"]': "move__down",
     '[data-move="2"]': "move__right",
     '[data-move="3"]': "move__right",
@@ -55,12 +54,15 @@ const userInteractions = (function () {
     w.onresize = userIsResizing;
 })();
 function userIsScrolling(event) {
+    var _a;
     if (ISSCROLLING === false) {
         let frame = requestAnimationFrame(function () {
             watchForScroll(elementToWatch);
             ISSCROLLING = false;
         });
     }
+    let nav = dq(".hd__navigator");
+    w.scrollY >= 30 ? nav.classList.add("show") : (_a = nav.classList) === null || _a === void 0 ? void 0 : _a.remove("show");
     ISSCROLLING = true;
     return ISSCROLLING;
 }

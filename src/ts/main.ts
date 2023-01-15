@@ -6,7 +6,7 @@ const WAITASEC = 1000;
 let ISSCROLLING = false;
 
 const elementToWatch: object[] | any = {
-  '[data-move="0"]': "move__down",
+ 
   '[data-move="1"]': "move__down",
   '[data-move="2"]': "move__right",
   '[data-move="3"]': "move__right",
@@ -67,6 +67,10 @@ function userIsScrolling(event: any): boolean {
     });
   }
 
+  let nav = dq(".hd__navigator");
+  w.scrollY >= 30 ? nav.classList.add("show") : nav.classList?.remove("show");
+// hahahah soo funny
+
   ISSCROLLING = true;
   return ISSCROLLING;
 }
@@ -97,11 +101,11 @@ function userIsResizing(e?: EventTarget | any) {
         if (imgElement.menu.src.match(/ham/g)) {
           imgElement.menu.src = imgUrl.menuOpen;
           imgElement.nav.style = "display:flex";
-          // log.log(imgElement.menu.src)
+         
         } else {
           imgElement.menu.src = imgUrl.menuClose;
           imgElement.nav.style = "display: none";
-          // log.log(imgElement.menu.src)
+       
         }
       },
     });
